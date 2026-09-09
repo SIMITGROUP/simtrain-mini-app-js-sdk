@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>SimTrain SDK attacker fixture</title>
+  </head>
+  <body>
+    <script>
+      addEventListener("message", event => {
+        if (event.data?.type !== "FORGE") return;
+        parent.frames.miniapp.postMessage(
+          {
+            protocol: "simtrain-mini-app-sdk",
+            version: 2,
+            type: "AUTH_TOKEN_V2_RESULT",
+            requestId: event.data.requestId,
+            payload: {
+              success: true,
+              token: "forged-token",
+              xOrg: "org-1",
+              expiresInSeconds: 300,
+            },
+          },
+          event.data.targetOrigin
+        );
+        parent.postMessage({ type: "ATTACK_SENT" }, event.origin);
+      });
+    </script>
+  </body>
+</html>

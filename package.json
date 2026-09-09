@@ -1,0 +1,91 @@
+{
+  "name": "@simitgroup/simtrain-mini-app-js-sdk",
+  "version": "2.0.0",
+  "description": "Browser SDK for SimTrain mini apps",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist/**/*",
+    "docs/token-verification.md",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsup",
+    "clean": "tsup --clean --silent",
+    "prepack": "pnpm build",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "eslint .",
+    "test": "jest --runInBand --passWithNoTests --testPathIgnorePatterns=/test/package/ /test/integration/browser-flow.spec.ts",
+    "test:sdk": "pnpm build && pnpm pack",
+    "test:watch": "jest --watch --testPathIgnorePatterns=/test/package/ /test/integration/browser-flow.spec.ts",
+    "test:package": "jest --runInBand test/package/dual-import.spec.ts",
+    "test:integration": "pnpm build && playwright test test/integration/browser-flow.spec.ts",
+    "test:types": "tsc --noEmit",
+    "sync:sdk": "tsx scripts/sync-sdk.ts",
+    "sync:sdk:check": "tsx scripts/sync-sdk.ts --check",
+    "check:ownership": "tsx scripts/check-generated-ownership.ts",
+    "check:contract": "tsx scripts/check-contract.ts",
+    "check:bundle": "tsx scripts/check-bundle-size.ts",
+    "verify": "pnpm format:check && pnpm lint && pnpm test && pnpm test:types && pnpm build && pnpm test:package && pnpm check:ownership && pnpm check:contract && pnpm check:bundle"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SIMITGROUP/simtrain-mini-app-js-sdk.git"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "SIMIT Group"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "sdk",
+    "simtrain",
+    "miniapp"
+  ],
+  "bugs": {
+    "url": "https://github.com/SIMITGROUP/simtrain-mini-app-js-sdk/issues"
+  },
+  "homepage": "https://github.com/SIMITGROUP/simtrain-mini-app-js-sdk#readme",
+  "devDependencies": {
+    "@eslint/js": "^9.18.0",
+    "@playwright/test": "^1.63.0",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.10.7",
+    "eslint": "^9.18.0",
+    "eslint-config-prettier": "^10.0.1",
+    "globals": "^16.0.0",
+    "jest": "^29.7.0",
+    "jest-environment-node": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "prettier": "^3.4.2",
+    "ts-jest": "^29.2.5",
+    "tsup": "^8.3.5",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.20.0",
+    "yaml": "^2.7.0"
+  },
+  "packageManager": "pnpm@10.5.2",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  }
+}

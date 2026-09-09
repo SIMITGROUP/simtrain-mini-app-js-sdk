@@ -1,0 +1,82 @@
+openapi: 3.0.3
+info: { title: Schema fixture, version: 2.0.0 }
+paths: {}
+components:
+  securitySchemes:
+    serviceBearer:
+      type: http
+      scheme: bearer
+      x-sdk-managed: true
+    miniAppUserBearer:
+      type: http
+      scheme: bearer
+      x-sdk-managed: true
+    x-org:
+      type: apiKey
+      in: header
+      name: x-org
+      x-sdk-managed: true
+  schemas:
+    Entity:
+      type: object
+      required: [id]
+      properties:
+        id:
+          description: Stable identifier.
+          type: string
+          format: uuid
+    User:
+      description: A recursive user record.
+      type: object
+      required: [id, createdAt, role]
+      properties:
+        id: { type: string }
+        nickname: { type: string, nullable: true }
+        createdAt: { type: string, format: v2-datetime }
+        role:
+          type: string
+          enum: [student, teacher]
+        score:
+          type: integer
+          minimum: 0
+          maximum: 100
+          default: 0
+        tags:
+          type: array
+          items: { type: string }
+        metadata:
+          type: object
+          additionalProperties: { type: string }
+        manager: { $ref: "#/components/schemas/User" }
+    Staff:
+      allOf:
+        - { $ref: "#/components/schemas/Entity" }
+        - type: object
+          required: [user]
+          properties:
+            user: { $ref: "#/components/schemas/User" }
+    SearchResult:
+      oneOf:
+        - { $ref: "#/components/schemas/User" }
+        - { $ref: "#/components/schemas/Staff" }
+      discriminator:
+        propertyName: kind
+        mapping:
+          user: "#/components/schemas/User"
+          staff: "#/components/schemas/Staff"
+    LooseValue: {}
+    Labels:
+      type: object
+      additionalProperties: { type: string }
+    NumericState:
+      type: integer
+      enum: [1, 2]
+    MaybeEntity:
+      anyOf:
+        - { $ref: "#/components/schemas/Entity" }
+        - { type: string }
+      nullable: true
+security:
+  - serviceBearer: []
+    x-org: []
+  - miniAppUserBearer: []

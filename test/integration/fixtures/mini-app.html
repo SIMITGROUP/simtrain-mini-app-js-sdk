@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>SimTrain SDK mini-app fixture</title>
+  </head>
+  <body>
+    <main>Mini app fixture</main>
+    <script type="module">
+      import { SimTrainApiError, SimTrainSdk } from "/sdk.mjs";
+
+      const sdk = new SimTrainSdk();
+      let pendingToken;
+      let tokenState = { status: "idle" };
+
+      window.miniAppHarness = {
+        list: params => sdk.students.list(params),
+        async listResult(params) {
+          try {
+            return { ok: true, value: await sdk.students.list(params) };
+          } catch (error) {
+            if (error instanceof SimTrainApiError) {
+              return {
+                ok: false,
+                error: {
+                  name: error.name,
+                  status: error.status,
+                  apiCode: error.apiCode,
+                  message: error.message,
+                  requestId: error.requestId,
+                  retryAfter: error.retryAfter,
+                  rateLimit: error.rateLimit,
+                },
+              };
+            }
+            return {
+              ok: false,
+              error: {
+                name: error instanceof Error ? error.name : "UnknownError",
+                message:
+                  error instanceof Error ? error.message : "Unknown failure",
+              },
+            };
+          }
+        },
+        getToken: () => sdk.auth.getToken(),
+        startToken() {
+          tokenState = { status: "pending" };
+          pendingToken = sdk.auth.getToken().then(
+            token => {
+              tokenState = { status: "fulfilled", token };
+            },
+            error => {
+              tokenState = {
+                status: "rejected",
+                message:
+                  error instanceof Error ? error.message : "Unknown failure",
+              };
+            }
+          );
+        },
+        tokenState: () => tokenState,
+        waitForToken: () => pendingToken,
+        navigate: payload => sdk.ui.navigateTo(payload),
+        navigateCurrent: payload => sdk.current.navigateTo(payload),
+        openStudentForm: id => sdk.students.openOnScreenForm(id),
+        storageState: async () => ({
+          local: Object.keys(localStorage),
+          session: Object.keys(sessionStorage),
+          indexedDb:
+            typeof indexedDB.databases === "function"
+              ? (await indexedDB.databases()).map(database => database.name)
+              : [],
+        }),
+        dispose: () => sdk.dispose(),
+      };
+    </script>
+  </body>
+</html>

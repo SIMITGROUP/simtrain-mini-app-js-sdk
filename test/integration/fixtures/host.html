@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>SimTrain SDK host fixture</title>
+  </head>
+  <body>
+    <iframe id="miniapp" name="miniapp" title="Mini app"></iframe>
+    <iframe id="attacker" title="Attacker fixture" hidden></iframe>
+    <script>
+      const protocol = "simtrain-mini-app-sdk";
+      const parameters = new URLSearchParams(location.search);
+      const miniAppUrl = parameters.get("miniAppUrl");
+      const gatewayUrl = parameters.get("gatewayUrl");
+      const attackerUrl = parameters.get("attackerUrl");
+      const holdToken = parameters.get("holdToken") === "1";
+      if (!miniAppUrl || !gatewayUrl || !attackerUrl) {
+        throw new Error("Missing fixture URL");
+      }
+
+      const miniAppOrigin = new URL(miniAppUrl).origin;
+      const attackerOrigin = new URL(attackerUrl).origin;
+      const miniApp = document.querySelector("#miniapp");
+      const attacker = document.querySelector("#attacker");
+      miniApp.src = miniAppUrl;
+      attacker.src = attackerUrl;
+
+      const state = {
+        messages: [],
+        tokenRequests: 0,
+        heldTokenRequestId: undefined,
+        attackSent: false,
+      };
+
+      const send = message => {
+        miniApp.contentWindow.postMessage(message, miniAppOrigin);
+      };
+      const tokenResult = (requestId, token) => ({
+        protocol,
+        version: 2,
+        type: "AUTH_TOKEN_V2_RESULT",
+        requestId,
+        payload: {
+          success: true,
+          token,
+          xOrg: "org-1",
+          expiresInSeconds: 300,
+        },
+      });
+
+      addEventListener("message", event => {
+        if (
+          event.source === attacker.contentWindow &&
+          event.origin === attackerOrigin &&
+          event.data?.type === "ATTACK_SENT"
+        ) {
+          state.attackSent = true;
+          return;
+        }
+        if (
+          event.source !== miniApp.contentWindow ||
+          event.origin !== miniAppOrigin ||
+          event.data?.protocol !== protocol ||
+          event.data?.version !== 2
+        ) {
+          return;
+        }
+        const message = event.data;
+        state.messages.push(structuredClone(message));
+        if (message.type === "READY") {
+          send({
+            protocol,
+            version: 2,
+            type: "INIT",
+            payload: {
+              nonce: message.payload.nonce,
+              gatewayBaseUrl: gatewayUrl,
+              capabilities: [
+                "auth.getToken",
+                "ui.navigateTo",
+                "current.navigateTo",
+                "ui.openOnScreenForm",
+              ],
+            },
+          });
+          return;
+        }
+        if (message.type === "AUTH_TOKEN_V2") {
+          state.tokenRequests += 1;
+          if (holdToken && state.heldTokenRequestId === undefined) {
+            state.heldTokenRequestId = message.requestId;
+          } else {
+            send(
+              tokenResult(
+                message.requestId,
+                `token-${String(state.tokenRequests)}`
+              )
+            );
+          }
+          return;
+        }
+        if (
+          message.type === "UI_NAVIGATE_TO" ||
+          message.type === "CURRENT_NAVIGATE_TO" ||
+          message.type === "UI_OPEN_ON_SCREEN_FORM"
+        ) {
+          send({
+            protocol,
+            version: 2,
+            type: "CONTROL_RESULT",
+            requestId: message.requestId,
+            payload: { success: true },
+          });
+        }
+      });
+
+      window.hostHarness = {
+        state: () => structuredClone(state),
+        invalidate() {
+          send({
+            protocol,
+            version: 2,
+            type: "CONTEXT_INVALIDATED",
+            payload: {},
+          });
+        },
+        completeHeldToken(token = "legitimate-token") {
+          if (state.heldTokenRequestId === undefined) {
+            throw new Error("No held token request");
+          }
+          send(tokenResult(state.heldTokenRequestId, token));
+          state.heldTokenRequestId = undefined;
+        },
+        forgeHeldToken() {
+          if (state.heldTokenRequestId === undefined) {
+            throw new Error("No held token request");
+          }
+          attacker.contentWindow.postMessage(
+            {
+              type: "FORGE",
+              targetOrigin: miniAppOrigin,
+              requestId: state.heldTokenRequestId,
+            },
+            attackerOrigin
+          );
+        },
+      };
+    </script>
+  </body>
+</html>

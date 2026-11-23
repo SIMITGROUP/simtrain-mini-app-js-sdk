@@ -2,7 +2,15 @@
 
 export interface MeCentreResponse {
   code: string;
+  /**
+   * The centre's own business email; empty when it has none.
+   */
+  email: string;
   id: string;
+  /**
+   * The centre's logo image URL; empty when it has none.
+   */
+  imageUrl: string;
   isCurrent: boolean;
   name: string;
   xOrg: string;

@@ -3,5 +3,9 @@
 export interface UserResponse {
   active: boolean;
   id: string;
+  /**
+   * The user's profile photo URL; empty when none.
+   */
+  imageUrl: string;
   name: string;
 }

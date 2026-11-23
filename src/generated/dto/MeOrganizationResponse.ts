@@ -5,5 +5,9 @@ import type { MeOrganizationConfigResponse } from "./MeOrganizationConfigRespons
 export interface MeOrganizationResponse {
   config: MeOrganizationConfigResponse;
   id: string;
+  /**
+   * The organization's logo image URL; empty when it has none.
+   */
+  imageUrl: string;
   name: string;
 }

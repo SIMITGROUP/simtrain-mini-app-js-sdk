@@ -10,3 +10,4 @@ export type { ListParentsParams } from "./parents.base";
 export type { ListParentChildrenParams } from "./parents.base";
 export type { SearchParentsParams } from "./parents.base";
 export type { UpdateParentParams } from "./parents.base";
+export type { UpdateParentContactParams } from "./parents.base";

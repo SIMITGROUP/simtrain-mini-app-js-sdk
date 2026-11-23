@@ -8,12 +8,6 @@ export interface ParentPatchRequest {
    */
   description?: string | null;
   /**
-   * Write-only. Not clearable.
-   * @format email
-   * @maxLength 200
-   */
-  email?: string;
-  /**
    * null clears the field.
    */
   gender?: "M" | "F" | null;
@@ -22,12 +16,6 @@ export interface ParentPatchRequest {
    * @maxLength 200
    */
   identityNo?: string | null;
-  /**
-   * Write-only. Not clearable.
-   * @minLength 7
-   * @maxLength 30
-   */
-  mobileNo?: string;
   /**
    * null clears the field.
    * @maxLength 200

@@ -11,3 +11,4 @@ export type { SearchStudentsParams } from "./students.base";
 export type { StopStudentParams } from "./students.base";
 export type { TemporarilyStopStudentParams } from "./students.base";
 export type { UpdateStudentParams } from "./students.base";
+export type { UpdateStudentContactParams } from "./students.base";

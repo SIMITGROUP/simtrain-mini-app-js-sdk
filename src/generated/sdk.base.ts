@@ -13,6 +13,7 @@ import { Holidays } from "../resources/holidays/holidays";
 import { Invoices } from "../resources/invoices/invoices";
 import { Levels } from "../resources/levels/levels";
 import { Me } from "../resources/me/me";
+import { Organization } from "../resources/organization/organization";
 import { Parents } from "../resources/parents/parents";
 import { PaymentMethods } from "../resources/paymentMethods/paymentMethods";
 import { Payments } from "../resources/payments/payments";
@@ -28,6 +29,7 @@ import { Rooms } from "../resources/rooms/rooms";
 import { RoomTypes } from "../resources/roomTypes/roomTypes";
 import { Schedules } from "../resources/schedules/schedules";
 import { Schools } from "../resources/schools/schools";
+import { Staff } from "../resources/staff/staff";
 import { StopReasons } from "../resources/stopReasons/stopReasons";
 import { StudentGroups } from "../resources/studentGroups/studentGroups";
 import { Students } from "../resources/students/students";
@@ -49,6 +51,7 @@ export abstract class SimTrainSdkBase {
   readonly invoices: Invoices;
   readonly levels: Levels;
   readonly me: Me;
+  readonly organization: Organization;
   readonly parents: Parents;
   readonly paymentMethods: PaymentMethods;
   readonly payments: Payments;
@@ -64,6 +67,7 @@ export abstract class SimTrainSdkBase {
   readonly roomTypes: RoomTypes;
   readonly schedules: Schedules;
   readonly schools: Schools;
+  readonly staff: Staff;
   readonly stopReasons: StopReasons;
   readonly studentGroups: StudentGroups;
   readonly students: Students;
@@ -85,6 +89,7 @@ export abstract class SimTrainSdkBase {
     this.invoices = new Invoices(transport);
     this.levels = new Levels(transport);
     this.me = new Me(transport);
+    this.organization = new Organization(transport);
     this.parents = new Parents(transport);
     this.paymentMethods = new PaymentMethods(transport);
     this.payments = new Payments(transport);
@@ -100,6 +105,7 @@ export abstract class SimTrainSdkBase {
     this.roomTypes = new RoomTypes(transport);
     this.schedules = new Schedules(transport);
     this.schools = new Schools(transport);
+    this.staff = new Staff(transport);
     this.stopReasons = new StopReasons(transport);
     this.studentGroups = new StudentGroups(transport);
     this.students = new Students(transport);

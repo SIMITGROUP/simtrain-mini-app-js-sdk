@@ -10,6 +10,7 @@ import type { DeleteResponse } from "../../../generated/dto/DeleteResponse";
 import type { ParentChildAttachRequest } from "../../../generated/dto/ParentChildAttachRequest";
 import type { ParentChildPaginatedResponse } from "../../../generated/dto/ParentChildPaginatedResponse";
 import type { ParentChildSingleResponse } from "../../../generated/dto/ParentChildSingleResponse";
+import type { ParentContactRequest } from "../../../generated/dto/ParentContactRequest";
 import type { ParentCreateRequest } from "../../../generated/dto/ParentCreateRequest";
 import type { ParentPaginatedResponse } from "../../../generated/dto/ParentPaginatedResponse";
 import type { ParentPatchRequest } from "../../../generated/dto/ParentPatchRequest";
@@ -69,6 +70,11 @@ export interface SearchParentsParams {
 export interface UpdateParentParams {
   id: string;
   body: ParentPatchRequest;
+}
+
+export interface UpdateParentContactParams {
+  id: string;
+  body: ParentContactRequest;
 }
 
 function serializeListParentsQuery(
@@ -406,7 +412,7 @@ export class ParentsBase {
 
   /**
    * Update a parent (partial)
-   * Absent fields remain unchanged. Nullable profile fields may be cleared.
+   * Absent fields remain unchanged. Nullable profile fields may be cleared. email and mobileNo are changed only through updateParentContact.
    *
    * Required scope: v2.parent.update.
    *
@@ -421,6 +427,33 @@ export class ParentsBase {
         operationId: "updateParent",
         method: "PATCH",
         path: "/v2/parents/{id}",
+        pathParameters: { id: params.id },
+        body: params.body,
+        requestMediaType: "application/json",
+        successStatuses: [200],
+        responseMediaType: "application/json",
+      },
+      options
+    );
+  }
+
+  /**
+   * Update a parent's contact
+   * Sets email and/or mobileNo; an absent field is left unchanged. Both are write-only (never returned) and cannot be cleared. Separate from updateParent so a centre grants contact changes on purpose. Scope: v2.parent.updateContact.
+   *
+   * Required scope: v2.parent.updateContact.
+   *
+   * Rate limit: medium tier (independent Account and App quotas, 60s window).
+   */
+  async updateContact(
+    params: UpdateParentContactParams,
+    options: RequestOptions = {}
+  ): Promise<ParentSingleResponse> {
+    return this.transport.request<ParentSingleResponse>(
+      {
+        operationId: "updateParentContact",
+        method: "PATCH",
+        path: "/v2/parents/{id}/contact",
         pathParameters: { id: params.id },
         body: params.body,
         requestMediaType: "application/json",

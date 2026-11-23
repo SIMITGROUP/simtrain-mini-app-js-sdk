@@ -49,9 +49,9 @@ describe("locked public contract inventory", () => {
         : []
     );
 
-    expect(resources).toHaveLength(34);
-    expect(operations).toHaveLength(199);
-    expect(new Set(operations).size).toBe(199);
+    expect(resources).toHaveLength(36);
+    expect(operations).toHaveLength(203);
+    expect(new Set(operations).size).toBe(203);
     expect(operations).toEqual(
       expect.arrayContaining(["students.list", "me.get"])
     );

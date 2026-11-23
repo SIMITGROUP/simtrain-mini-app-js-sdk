@@ -7,6 +7,7 @@ import type {
   SdkRuntimeTransport,
 } from "../../../transport/transport";
 import type { StudentActivateRequest } from "../../../generated/dto/StudentActivateRequest";
+import type { StudentContactRequest } from "../../../generated/dto/StudentContactRequest";
 import type { StudentCreateRequest } from "../../../generated/dto/StudentCreateRequest";
 import type { StudentOutstandingInvoicePaginatedResponse } from "../../../generated/dto/StudentOutstandingInvoicePaginatedResponse";
 import type { StudentPaginatedResponse } from "../../../generated/dto/StudentPaginatedResponse";
@@ -75,6 +76,11 @@ export interface TemporarilyStopStudentParams {
 export interface UpdateStudentParams {
   id: string;
   body: StudentPatchRequest;
+}
+
+export interface UpdateStudentContactParams {
+  id: string;
+  body: StudentContactRequest;
 }
 
 function serializeListStudentsQuery(
@@ -462,6 +468,33 @@ export class StudentsBase {
         operationId: "updateStudent",
         method: "PATCH",
         path: "/v2/students/{id}",
+        pathParameters: { id: params.id },
+        body: params.body,
+        requestMediaType: "application/json",
+        successStatuses: [200],
+        responseMediaType: "application/json",
+      },
+      options
+    );
+  }
+
+  /**
+   * Update a student's contact
+   * Sets email and/or mobileNo; an absent field is left unchanged. Both are write-only (never returned) and cannot be cleared. Separate from updateStudent so a centre grants contact changes on purpose. Scope: v2.student.updateContact.
+   *
+   * Required scope: v2.student.updateContact.
+   *
+   * Rate limit: medium tier (independent Account and App quotas, 60s window).
+   */
+  async updateContact(
+    params: UpdateStudentContactParams,
+    options: RequestOptions = {}
+  ): Promise<StudentSingleResponse> {
+    return this.transport.request<StudentSingleResponse>(
+      {
+        operationId: "updateStudentContact",
+        method: "PATCH",
+        path: "/v2/students/{id}/contact",
         pathParameters: { id: params.id },
         body: params.body,
         requestMediaType: "application/json",

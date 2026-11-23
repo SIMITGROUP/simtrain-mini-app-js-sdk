@@ -2,6 +2,7 @@
 
 import type { CreditNoteBillingAdjustmentResponse } from "./CreditNoteBillingAdjustmentResponse";
 import type { CreditNoteInvoiceResponse } from "./CreditNoteInvoiceResponse";
+import type { CustomFields } from "./CustomFields";
 import type { Ref } from "./Ref";
 import type { UserRef } from "./UserRef";
 
@@ -20,6 +21,10 @@ export interface CreditNoteResponse {
   creditNoteNo: string;
   creditNoteTitle: string;
   creditNoteTotal: number;
+  /**
+   * This app's own custom fields on this record. Keys and types come from the app's custom field schema in the developer portal; {} when it has none.
+   */
+  customFields: CustomFields;
   description?: string;
   id: string;
   invoices: CreditNoteInvoiceResponse[];

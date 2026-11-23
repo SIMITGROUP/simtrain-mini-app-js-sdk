@@ -76,6 +76,8 @@ export type { CreditNoteSearchRequest } from "./CreditNoteSearchRequest";
 export type { CreditNoteSingleResponse } from "./CreditNoteSingleResponse";
 export type { CreditNoteSortKey } from "./CreditNoteSortKey";
 export type { CreditNoteStatusFilter } from "./CreditNoteStatusFilter";
+export type { CustomFields } from "./CustomFields";
+export type { CustomFieldsFilter } from "./CustomFieldsFilter";
 export type { DeleteResponse } from "./DeleteResponse";
 export type { DeleteResult } from "./DeleteResult";
 export type { EnrollmentCreateRequest } from "./EnrollmentCreateRequest";

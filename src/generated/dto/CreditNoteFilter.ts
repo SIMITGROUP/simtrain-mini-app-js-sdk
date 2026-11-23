@@ -2,6 +2,7 @@
 
 import type { CreditNoteFilterBranch } from "./CreditNoteFilterBranch";
 import type { CreditNoteStatusFilter } from "./CreditNoteStatusFilter";
+import type { CustomFieldsFilter } from "./CustomFieldsFilter";
 import type { V2CodeFilter } from "./V2CodeFilter";
 import type { V2DateRangeFilter } from "./V2DateRangeFilter";
 import type { V2DateTimeRangeFilter } from "./V2DateTimeRangeFilter";
@@ -19,6 +20,10 @@ export interface CreditNoteFilter {
   creditNoteDate?: V2DateRangeFilter;
   creditNoteNo?: V2CodeFilter;
   creditNoteTotal?: V2NumberRangeFilter;
+  /**
+   * Exact, case-sensitive match on this app's own custom fields: { "<key>": { "in": [value, ...] } }. Keys are top-level string, number or boolean fields of the app schema; several keys must all match.
+   */
+  customFields?: CustomFieldsFilter;
   id?: V2InFilter;
   invoiceId?: V2RefFilter;
   parentId?: V2RefFilter;

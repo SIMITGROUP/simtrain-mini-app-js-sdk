@@ -3,6 +3,7 @@
 import type { AnnouncementAudienceTypeFilter } from "./AnnouncementAudienceTypeFilter";
 import type { AnnouncementFilterBranch } from "./AnnouncementFilterBranch";
 import type { AnnouncementStatusFilter } from "./AnnouncementStatusFilter";
+import type { CustomFieldsFilter } from "./CustomFieldsFilter";
 import type { V2CodeFilter } from "./V2CodeFilter";
 import type { V2DateRangeFilter } from "./V2DateRangeFilter";
 import type { V2DateTimeRangeFilter } from "./V2DateTimeRangeFilter";
@@ -20,6 +21,10 @@ export interface AnnouncementFilter {
   audienceType?: AnnouncementAudienceTypeFilter;
   closeDate?: V2DateRangeFilter;
   created?: V2DateTimeRangeFilter;
+  /**
+   * Exact, case-sensitive match on this app's own custom fields: { "<key>": { "in": [value, ...] } }. Keys are top-level string, number or boolean fields of the app schema; several keys must all match.
+   */
+  customFields?: CustomFieldsFilter;
   id?: V2InFilter;
   status?: AnnouncementStatusFilter;
   updated?: V2DateTimeRangeFilter;

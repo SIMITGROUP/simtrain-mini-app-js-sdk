@@ -40,6 +40,12 @@ describe("renderDtoFiles", () => {
     expect(files.get("NumericState.ts")).toContain("1 | 2");
   });
 
+  it("renders a property-less object as a free-form record", () => {
+    expect(files.get("EmptyObject.ts")).toContain(
+      "export type EmptyObject = Record<string, unknown>;"
+    );
+  });
+
   it("emits deterministic generated files and a sorted barrel without any", () => {
     expect([...files.keys()]).toEqual([...files.keys()].sort());
     expect(files.get("index.ts")).toContain(

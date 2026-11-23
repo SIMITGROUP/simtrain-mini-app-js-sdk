@@ -174,6 +174,7 @@ function canRenderInterface(schema: OpenApiSchema): boolean {
   return (
     schema.type === "object" &&
     schema.properties !== undefined &&
+    Object.keys(schema.properties).length > 0 &&
     schema.$ref === undefined &&
     schema.allOf === undefined &&
     schema.oneOf === undefined &&

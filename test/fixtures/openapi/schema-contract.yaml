@@ -76,6 +76,9 @@ components:
         - { $ref: "#/components/schemas/Entity" }
         - { type: string }
       nullable: true
+    EmptyObject:
+      type: object
+      properties: {}
 security:
   - serviceBearer: []
     x-org: []

@@ -152,7 +152,6 @@ export type { GetSchoolParams } from "../resources/schools/generated";
 export type { ListSchoolsParams } from "../resources/schools/generated";
 export type { SearchSchoolsParams } from "../resources/schools/generated";
 export type { UpdateSchoolParams } from "../resources/schools/generated";
-export type { ListStaffParams } from "../resources/staff/generated";
 export type { CreateStopReasonParams } from "../resources/stopReasons/generated";
 export type { DeleteStopReasonParams } from "../resources/stopReasons/generated";
 export type { GetStopReasonParams } from "../resources/stopReasons/generated";
@@ -202,3 +201,4 @@ export type { PreviewTuitionClassScheduleRegenerationParams } from "../resources
 export type { RegenerateTuitionClassSchedulesParams } from "../resources/tuitionClasses/generated";
 export type { SearchTuitionClassesParams } from "../resources/tuitionClasses/generated";
 export type { UpdateTuitionClassParams } from "../resources/tuitionClasses/generated";
+export type { ListUsersParams } from "../resources/users/generated";

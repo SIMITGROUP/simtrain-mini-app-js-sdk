@@ -5,9 +5,9 @@ import type {
   QueryParameter,
   SdkRuntimeTransport,
 } from "../../../transport/transport";
-import type { StaffPaginatedResponse } from "../../../generated/dto/StaffPaginatedResponse";
+import type { UserPaginatedResponse } from "../../../generated/dto/UserPaginatedResponse";
 
-export interface ListStaffParams {
+export interface ListUsersParams {
   active?: boolean;
   email?: string[];
   keyword?: string;
@@ -18,8 +18,8 @@ export interface ListStaffParams {
   withTotal?: boolean;
 }
 
-function serializeListStaffQuery(
-  params: ListStaffParams
+function serializeListUsersQuery(
+  params: ListUsersParams
 ): readonly QueryParameter[] {
   return [
     {
@@ -73,27 +73,27 @@ function serializeListStaffQuery(
   ];
 }
 
-export class StaffBase {
+export class UsersBase {
   constructor(protected readonly transport: SdkRuntimeTransport) {}
 
   /**
-   * List the centre's staff
-   * Users with access to the caller's centre, without service accounts. Returns id, name and active only; email is an exact filter and is never returned. Default sort: created desc. Scope: v2.staff.list.
+   * List the centre's users
+   * SimTrain login accounts with access to the caller's centre — not teacher records, parent or student app accounts, or service accounts. Returns id, name and active only; email is an exact filter and is never returned. Default sort: created desc. Scope: v2.user.list.
    *
-   * Required scope: v2.staff.list.
+   * Required scope: v2.user.list.
    *
    * Rate limit: light tier (independent Account and App quotas, 60s window).
    */
   async list(
-    params: ListStaffParams = {},
+    params: ListUsersParams = {},
     options: RequestOptions = {}
-  ): Promise<StaffPaginatedResponse> {
-    return this.transport.request<StaffPaginatedResponse>(
+  ): Promise<UserPaginatedResponse> {
+    return this.transport.request<UserPaginatedResponse>(
       {
-        operationId: "listStaff",
+        operationId: "listUsers",
         method: "GET",
-        path: "/v2/staff",
-        query: serializeListStaffQuery(params),
+        path: "/v2/users",
+        query: serializeListUsersQuery(params),
         successStatuses: [200],
         responseMediaType: "application/json",
       },

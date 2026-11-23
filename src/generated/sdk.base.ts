@@ -29,7 +29,6 @@ import { Rooms } from "../resources/rooms/rooms";
 import { RoomTypes } from "../resources/roomTypes/roomTypes";
 import { Schedules } from "../resources/schedules/schedules";
 import { Schools } from "../resources/schools/schools";
-import { Staff } from "../resources/staff/staff";
 import { StopReasons } from "../resources/stopReasons/stopReasons";
 import { StudentGroups } from "../resources/studentGroups/studentGroups";
 import { Students } from "../resources/students/students";
@@ -37,6 +36,7 @@ import { StudentSources } from "../resources/studentSources/studentSources";
 import { TeacherGroups } from "../resources/teacherGroups/teacherGroups";
 import { Teachers } from "../resources/teachers/teachers";
 import { TuitionClasses } from "../resources/tuitionClasses/tuitionClasses";
+import { Users } from "../resources/users/users";
 
 export abstract class SimTrainSdkBase {
   readonly academySessions: AcademySessions;
@@ -67,7 +67,6 @@ export abstract class SimTrainSdkBase {
   readonly roomTypes: RoomTypes;
   readonly schedules: Schedules;
   readonly schools: Schools;
-  readonly staff: Staff;
   readonly stopReasons: StopReasons;
   readonly studentGroups: StudentGroups;
   readonly students: Students;
@@ -75,6 +74,7 @@ export abstract class SimTrainSdkBase {
   readonly teacherGroups: TeacherGroups;
   readonly teachers: Teachers;
   readonly tuitionClasses: TuitionClasses;
+  readonly users: Users;
 
   protected constructor(transport: SdkRuntimeTransport) {
     this.academySessions = new AcademySessions(transport);
@@ -105,7 +105,6 @@ export abstract class SimTrainSdkBase {
     this.roomTypes = new RoomTypes(transport);
     this.schedules = new Schedules(transport);
     this.schools = new Schools(transport);
-    this.staff = new Staff(transport);
     this.stopReasons = new StopReasons(transport);
     this.studentGroups = new StudentGroups(transport);
     this.students = new Students(transport);
@@ -113,5 +112,6 @@ export abstract class SimTrainSdkBase {
     this.teacherGroups = new TeacherGroups(transport);
     this.teachers = new Teachers(transport);
     this.tuitionClasses = new TuitionClasses(transport);
+    this.users = new Users(transport);
   }
 }

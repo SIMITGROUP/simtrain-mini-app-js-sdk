@@ -13,7 +13,6 @@ import { Holidays } from "../resources/holidays/holidays";
 import { Invoices } from "../resources/invoices/invoices";
 import { Levels } from "../resources/levels/levels";
 import { Me } from "../resources/me/me";
-import { Organization } from "../resources/organization/organization";
 import { Parents } from "../resources/parents/parents";
 import { PaymentMethods } from "../resources/paymentMethods/paymentMethods";
 import { Payments } from "../resources/payments/payments";
@@ -51,7 +50,6 @@ export abstract class SimTrainSdkBase {
   readonly invoices: Invoices;
   readonly levels: Levels;
   readonly me: Me;
-  readonly organization: Organization;
   readonly parents: Parents;
   readonly paymentMethods: PaymentMethods;
   readonly payments: Payments;
@@ -89,7 +87,6 @@ export abstract class SimTrainSdkBase {
     this.invoices = new Invoices(transport);
     this.levels = new Levels(transport);
     this.me = new Me(transport);
-    this.organization = new Organization(transport);
     this.parents = new Parents(transport);
     this.paymentMethods = new PaymentMethods(transport);
     this.payments = new Payments(transport);

@@ -201,4 +201,5 @@ export type { PreviewTuitionClassScheduleRegenerationParams } from "../resources
 export type { RegenerateTuitionClassSchedulesParams } from "../resources/tuitionClasses/generated";
 export type { SearchTuitionClassesParams } from "../resources/tuitionClasses/generated";
 export type { UpdateTuitionClassParams } from "../resources/tuitionClasses/generated";
+export type { GetUserContactParams } from "../resources/users/generated";
 export type { ListUsersParams } from "../resources/users/generated";

@@ -133,9 +133,6 @@ export type { MeOrganizationConfigResponse } from "./MeOrganizationConfigRespons
 export type { MeOrganizationResponse } from "./MeOrganizationResponse";
 export type { MeResponse } from "./MeResponse";
 export type { MeSingleResponse } from "./MeSingleResponse";
-export type { OrganizationConfigResponse } from "./OrganizationConfigResponse";
-export type { OrganizationResponse } from "./OrganizationResponse";
-export type { OrganizationSingleResponse } from "./OrganizationSingleResponse";
 export type { Pagination } from "./Pagination";
 export type { ParentChildAttachRequest } from "./ParentChildAttachRequest";
 export type { ParentChildPaginatedResponse } from "./ParentChildPaginatedResponse";
@@ -370,6 +367,8 @@ export type { TuitionClassSearchRequest } from "./TuitionClassSearchRequest";
 export type { TuitionClassSingleResponse } from "./TuitionClassSingleResponse";
 export type { TuitionClassSortKey } from "./TuitionClassSortKey";
 export type { TuitionClassTypeFilter } from "./TuitionClassTypeFilter";
+export type { UserContactResponse } from "./UserContactResponse";
+export type { UserContactSingleResponse } from "./UserContactSingleResponse";
 export type { UserPaginatedResponse } from "./UserPaginatedResponse";
 export type { UserRef } from "./UserRef";
 export type { UserResponse } from "./UserResponse";

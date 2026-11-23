@@ -5,7 +5,12 @@ import type {
   QueryParameter,
   SdkRuntimeTransport,
 } from "../../../transport/transport";
+import type { UserContactSingleResponse } from "../../../generated/dto/UserContactSingleResponse";
 import type { UserPaginatedResponse } from "../../../generated/dto/UserPaginatedResponse";
+
+export interface GetUserContactParams {
+  id: string;
+}
 
 export interface ListUsersParams {
   active?: boolean;
@@ -75,6 +80,31 @@ function serializeListUsersQuery(
 
 export class UsersBase {
   constructor(protected readonly transport: SdkRuntimeTransport) {}
+
+  /**
+   * Get one user's contact
+   * Returns the name, email and mobile number of one SimTrain login account with access to the caller's centre. Not for service accounts. Contact is read only here, behind its own scope. Scope: v2.user.getContact.
+   *
+   * Required scope: v2.user.getContact.
+   *
+   * Rate limit: medium tier (independent Account and App quotas, 60s window).
+   */
+  async getContact(
+    params: GetUserContactParams,
+    options: RequestOptions = {}
+  ): Promise<UserContactSingleResponse> {
+    return this.transport.request<UserContactSingleResponse>(
+      {
+        operationId: "getUserContact",
+        method: "GET",
+        path: "/v2/users/{id}/contact",
+        pathParameters: { id: params.id },
+        successStatuses: [200],
+        responseMediaType: "application/json",
+      },
+      options
+    );
+  }
 
   /**
    * List the centre's users

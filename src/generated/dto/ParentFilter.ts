@@ -19,7 +19,7 @@ export interface ParentFilter {
    */
   customFields?: CustomFieldsFilter;
   /**
-   * Exact email values only. The values are never returned.
+   * Email values: whole value, case-insensitive. The values are never returned.
    */
   email?: V2InFilter;
   id?: V2InFilter;

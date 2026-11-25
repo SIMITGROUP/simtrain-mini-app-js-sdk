@@ -9,7 +9,7 @@ export interface ParentFilterBranch {
   active?: V2BooleanFilter;
   created?: V2DateTimeRangeFilter;
   /**
-   * Exact email values only. The values are never returned.
+   * Email values: whole value, case-insensitive. The values are never returned.
    */
   email?: V2InFilter;
   id?: V2InFilter;

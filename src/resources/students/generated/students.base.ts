@@ -42,6 +42,7 @@ export interface ListStudentsParams {
   levelId?: string[];
   mobileNo?: string[];
   page?: number;
+  parentEmail?: string[];
   size?: number;
   sortBy?: "created" | "updated" | "studentName" | "studentCode";
   sortDir?: "asc" | "desc";
@@ -128,6 +129,12 @@ function serializeListStudentsQuery(
     {
       name: "page",
       value: params.page,
+      style: "form",
+      explode: true,
+    },
+    {
+      name: "parentEmail",
+      value: params.parentEmail,
       style: "form",
       explode: true,
     },

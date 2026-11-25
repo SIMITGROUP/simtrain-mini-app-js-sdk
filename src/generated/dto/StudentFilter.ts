@@ -23,7 +23,7 @@ export interface StudentFilter {
    */
   customFields?: CustomFieldsFilter;
   /**
-   * Exact email values only. The values are never returned.
+   * Email values: whole value, case-insensitive. The values are never returned.
    */
   email?: V2InFilter;
   gender?: StudentGenderFilter;
@@ -44,6 +44,10 @@ export interface StudentFilter {
    * Exact mobile number values only. The values are never returned.
    */
   mobileNo?: V2InFilter;
+  /**
+   * Students linked to parents with these emails (whole value, case-insensitive). With email in anyOf it is a one-call login lookup. The values are never returned.
+   */
+  parentEmail?: V2InFilter;
   /**
    * Filter by school id; exists:false = no school.
    */

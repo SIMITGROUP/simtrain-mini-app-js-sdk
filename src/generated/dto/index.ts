@@ -135,6 +135,15 @@ export type { MeOrganizationConfigResponse } from "./MeOrganizationConfigRespons
 export type { MeOrganizationResponse } from "./MeOrganizationResponse";
 export type { MeResponse } from "./MeResponse";
 export type { MeSingleResponse } from "./MeSingleResponse";
+export type { OnlinePaymentCheckout } from "./OnlinePaymentCheckout";
+export type { OnlinePaymentCreateRequest } from "./OnlinePaymentCreateRequest";
+export type { OnlinePaymentCreateResponse } from "./OnlinePaymentCreateResponse";
+export type { OnlinePaymentCreateSingleResponse } from "./OnlinePaymentCreateSingleResponse";
+export type { OnlinePaymentInvoiceInput } from "./OnlinePaymentInvoiceInput";
+export type { OnlinePaymentInvoiceResponse } from "./OnlinePaymentInvoiceResponse";
+export type { OnlinePaymentReceiptResponse } from "./OnlinePaymentReceiptResponse";
+export type { OnlinePaymentResponse } from "./OnlinePaymentResponse";
+export type { OnlinePaymentSingleResponse } from "./OnlinePaymentSingleResponse";
 export type { Pagination } from "./Pagination";
 export type { ParentChildAttachRequest } from "./ParentChildAttachRequest";
 export type { ParentChildPaginatedResponse } from "./ParentChildPaginatedResponse";

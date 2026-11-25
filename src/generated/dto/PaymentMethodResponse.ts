@@ -15,6 +15,10 @@ export interface PaymentMethodResponse {
   customFields: CustomFields;
   description?: string;
   id: string;
+  /**
+   * true: the online payment method. A receipt for an online payment made with skipReceipt uses it.
+   */
+  onlinePayment: boolean;
   paymentMethodCode: string;
   paymentMethodName: string;
   /**

@@ -63,6 +63,8 @@ export type { ListLevelsParams } from "../resources/levels/generated";
 export type { SearchLevelsParams } from "../resources/levels/generated";
 export type { UpdateLevelParams } from "../resources/levels/generated";
 export type { ListMyCentresParams } from "../resources/me/generated";
+export type { CreateOnlinePaymentParams } from "../resources/onlinePayments/generated";
+export type { GetOnlinePaymentParams } from "../resources/onlinePayments/generated";
 export type { AttachParentChildParams } from "../resources/parents/generated";
 export type { CreateParentParams } from "../resources/parents/generated";
 export type { DeleteParentParams } from "../resources/parents/generated";

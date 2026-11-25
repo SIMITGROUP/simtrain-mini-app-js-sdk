@@ -26,7 +26,7 @@ export interface PaymentCreateRequest {
    */
   invoices: PaymentInvoiceInput[];
   /**
-   * Omitted defaults to the student's first parent; null leaves it empty.
+   * Omitted defaults to the student's default parent (the first parent when none is marked); null leaves it empty.
    * @minLength 1
    * @maxLength 64
    */

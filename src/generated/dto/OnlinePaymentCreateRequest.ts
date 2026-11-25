@@ -16,7 +16,7 @@ export interface OnlinePaymentCreateRequest {
    */
   invoices: OnlinePaymentInvoiceInput[];
   /**
-   * Omitted defaults to the student's first parent; null leaves it empty. The automatic receipt needs a parent, so without one send skipReceipt: true.
+   * Omitted defaults to the student's default parent (the first parent when none is marked); null leaves it empty. The automatic receipt needs a parent, so without one send skipReceipt: true.
    * @minLength 1
    * @maxLength 64
    */

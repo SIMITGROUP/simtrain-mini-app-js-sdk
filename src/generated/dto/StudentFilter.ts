@@ -22,6 +22,10 @@ export interface StudentFilter {
    * Exact, case-sensitive match on this app's own custom fields: { "<key>": { "in": [value, ...] } }. Keys are top-level string, number or boolean fields of the app schema; several keys must all match.
    */
   customFields?: CustomFieldsFilter;
+  /**
+   * Exact email values only. The values are never returned.
+   */
+  email?: V2InFilter;
   gender?: StudentGenderFilter;
   /**
    * Filter by student ids (the batch door).
@@ -36,6 +40,10 @@ export interface StudentFilter {
    * Filter by level id (level is required on students — no exists).
    */
   levelId?: V2InFilter;
+  /**
+   * Exact mobile number values only. The values are never returned.
+   */
+  mobileNo?: V2InFilter;
   /**
    * Filter by school id; exists:false = no school.
    */

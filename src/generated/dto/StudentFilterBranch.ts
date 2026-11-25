@@ -11,6 +11,10 @@ import type { V2TextFilter } from "./V2TextFilter";
 
 export interface StudentFilterBranch {
   created?: V2DateTimeRangeFilter;
+  /**
+   * Exact email values only. The values are never returned.
+   */
+  email?: V2InFilter;
   gender?: StudentGenderFilter;
   /**
    * Filter by student ids (the batch door).
@@ -25,6 +29,10 @@ export interface StudentFilterBranch {
    * Filter by level id (level is required on students — no exists).
    */
   levelId?: V2InFilter;
+  /**
+   * Exact mobile number values only. The values are never returned.
+   */
+  mobileNo?: V2InFilter;
   /**
    * Filter by school id; exists:false = no school.
    */

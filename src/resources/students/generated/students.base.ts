@@ -37,8 +37,10 @@ export interface GetStudentSummaryParams {
 export interface ListStudentsParams {
   createdFrom?: string;
   createdTo?: string;
+  email?: string[];
   id?: string[];
   levelId?: string[];
+  mobileNo?: string[];
   page?: number;
   size?: number;
   sortBy?: "created" | "updated" | "studentName" | "studentCode";
@@ -100,6 +102,12 @@ function serializeListStudentsQuery(
       explode: true,
     },
     {
+      name: "email",
+      value: params.email,
+      style: "form",
+      explode: true,
+    },
+    {
       name: "id",
       value: params.id,
       style: "form",
@@ -108,6 +116,12 @@ function serializeListStudentsQuery(
     {
       name: "levelId",
       value: params.levelId,
+      style: "form",
+      explode: true,
+    },
+    {
+      name: "mobileNo",
+      value: params.mobileNo,
       style: "form",
       explode: true,
     },

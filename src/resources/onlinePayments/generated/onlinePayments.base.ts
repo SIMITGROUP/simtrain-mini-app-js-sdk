@@ -19,7 +19,7 @@ export class OnlinePaymentsBase {
 
   /**
    * Start an online payment
-   * Starts an online payment for a student's outstanding invoices. The server checks each invoice and amount, builds the payment from its own data and returns checkout.html, the page that sends the payer to the payment gateway. When paid, the receipt is made automatically unless skipReceipt is true. ERR_ONLINEPAY_0001 (400): returnUrl or cancelUrl host is not on the allow-list.
+   * Starts an online payment for a student: for some of their outstanding invoices, or for an amount without invoices. The server checks each invoice and amount, builds the payment from its own data and returns checkout.html, the page that sends the payer to the payment gateway. When paid, the receipt is made automatically unless skipReceipt is true or there are no invoices. The payment carries the calling mini app's code as its payment-service source ('mcplus' makes no receipt); apps never send one. ERR_ONLINEPAY_0001 (400): returnUrl or cancelUrl host is not on the allow-list.
    *
    * Required scope: v2.onlinePayment.create.
    *

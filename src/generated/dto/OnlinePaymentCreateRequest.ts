@@ -4,19 +4,25 @@ import type { OnlinePaymentInvoiceInput } from "./OnlinePaymentInvoiceInput";
 
 export interface OnlinePaymentCreateRequest {
   /**
+   * The total the payer pays. Required when there are no invoices. With invoices it can be left out (it is their sum); if sent it must equal their sum.
+   * @minimum 0.01
+   * @maximum 10000000
+   */
+  amount?: number;
+  /**
    * Where the payer returns after cancelling. Its host must be on the payment service allow-list.
    * @format uri
    * @maxLength 2000
    */
   cancelUrl?: string;
   /**
-   * The student's outstanding invoices this payment pays.
+   * The student's outstanding invoices this payment pays; the total is their sum. Leave it out for a payment that pays no invoice, and send amount instead.
    * @minItems 1
    * @maxItems 100
    */
-  invoices: OnlinePaymentInvoiceInput[];
+  invoices?: OnlinePaymentInvoiceInput[];
   /**
-   * Omitted defaults to the student's default parent (the first parent when none is marked); null leaves it empty. The automatic receipt needs a parent, so without one send skipReceipt: true.
+   * Omitted defaults to the student's default parent (the first parent when none is marked); null leaves it empty. The automatic receipt needs a parent, so without one send skipReceipt: true (a payment without invoices never makes one).
    * @minLength 1
    * @maxLength 64
    */
@@ -34,7 +40,7 @@ export interface OnlinePaymentCreateRequest {
    */
   returnUrl: string;
   /**
-   * true: no receipt is made when paid; the app makes its own with POST /v2/payments (the online payment method, transactionNo = this paymentNo, the same invoices and total) and then confirms it. Default false: the receipt is made automatically.
+   * true: no receipt is made when paid; the app makes its own with POST /v2/payments (the online payment method, transactionNo = this paymentNo, the same invoices and total) and then confirms it. Default false: the receipt is made automatically. A payment without invoices never makes a receipt, so false is refused there.
    * @default false
    */
   skipReceipt?: boolean;

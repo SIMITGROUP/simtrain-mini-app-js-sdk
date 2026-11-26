@@ -3,10 +3,13 @@
 export interface BillingAdjustmentAllocationResponse {
   allocatedAmount: number;
   /**
+   * The invoice line's enrollmentBillingId (its billing schedule). Empty for lines without one, such as charge lines.
+   */
+  enrollmentBillingId?: string;
+  /**
    * @format date
    */
   invoiceDate?: string;
-  invoiceDetailId: string;
   invoiceId: string;
   invoiceNo: string;
   originalAmount: number;

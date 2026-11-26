@@ -6,9 +6,23 @@ import type {
   QueryParameter,
   SdkRuntimeTransport,
 } from "../../../transport/transport";
+import type { CreditNoteCreateRequest } from "../../../generated/dto/CreditNoteCreateRequest";
 import type { CreditNotePaginatedResponse } from "../../../generated/dto/CreditNotePaginatedResponse";
 import type { CreditNoteSearchRequest } from "../../../generated/dto/CreditNoteSearchRequest";
 import type { CreditNoteSingleResponse } from "../../../generated/dto/CreditNoteSingleResponse";
+import type { DeleteResponse } from "../../../generated/dto/DeleteResponse";
+
+export interface ConfirmCreditNoteParams {
+  id: string;
+}
+
+export interface CreateCreditNoteParams {
+  body: CreditNoteCreateRequest;
+}
+
+export interface DeleteCreditNoteParams {
+  id: string;
+}
 
 export interface GetCreditNoteParams {
   id: string;
@@ -183,6 +197,82 @@ export class CreditNotesBase {
    */
   openOnScreenForm(id?: string, options: ControlOptions = {}): Promise<void> {
     return this.transport.openOnScreenForm("creditNotes", id, options);
+  }
+
+  /**
+   * Confirm a draft credit note
+   * Checks the create rules again against current data: every invoice is still outstanding for at least its credit, and every allocation still finds its line within the line limit. Then the normal credit note confirm runs (account posting, e-invoice and accounting sync).
+   *
+   * Required scope: v2.creditNote.confirm.
+   *
+   * Rate limit: medium tier (independent Account and App quotas, 60s window).
+   */
+  async confirm(
+    params: ConfirmCreditNoteParams,
+    options: RequestOptions = {}
+  ): Promise<CreditNoteSingleResponse> {
+    return this.transport.request<CreditNoteSingleResponse>(
+      {
+        operationId: "confirmCreditNote",
+        method: "POST",
+        path: "/v2/credit-notes/{id}/confirm",
+        pathParameters: { id: params.id },
+        successStatuses: [200],
+        responseMediaType: "application/json",
+      },
+      options
+    );
+  }
+
+  /**
+   * Create a draft credit note
+   * Creates a draft credit note for one student from per-line allocations. Each allocation names an outstanding invoice and one of its lines by enrollmentBillingId, and must stay within the line limit. The server resolves snapshots, generates the credit note number, derives the per-invoice amounts and the total, stamps preparedBy, and defaults parent, agent and description when omitted.
+   *
+   * Required scope: v2.creditNote.create.
+   *
+   * Rate limit: medium tier (independent Account and App quotas, 60s window).
+   */
+  async create(
+    params: CreateCreditNoteParams,
+    options: RequestOptions = {}
+  ): Promise<CreditNoteSingleResponse> {
+    return this.transport.request<CreditNoteSingleResponse>(
+      {
+        operationId: "createCreditNote",
+        method: "POST",
+        path: "/v2/credit-notes",
+        body: params.body,
+        requestMediaType: "application/json",
+        successStatuses: [201],
+        responseMediaType: "application/json",
+      },
+      options
+    );
+  }
+
+  /**
+   * Delete a draft credit note
+   * Only draft credit notes can be deleted; confirmed and void credit notes remain as accounting history.
+   *
+   * Required scope: v2.creditNote.delete.
+   *
+   * Rate limit: medium tier (independent Account and App quotas, 60s window).
+   */
+  async delete(
+    params: DeleteCreditNoteParams,
+    options: RequestOptions = {}
+  ): Promise<DeleteResponse> {
+    return this.transport.request<DeleteResponse>(
+      {
+        operationId: "deleteCreditNote",
+        method: "DELETE",
+        path: "/v2/credit-notes/{id}",
+        pathParameters: { id: params.id },
+        successStatuses: [200],
+        responseMediaType: "application/json",
+      },
+      options
+    );
   }
 
   /**

@@ -6,14 +6,22 @@ export interface InvoiceDetailResponse {
   classCode?: string;
   description?: string;
   /**
-   * Calendar date YYYY-MM-DD
+   * Calendar date YYYY-MM-DD. A line that doesn't store it takes it from its billing schedule.
    * @format date
    */
   endDate?: string;
+  /**
+   * The billing schedule (one billing period of the enrollment) this line bills. Credit note allocations name the line by it. Empty on charge lines.
+   */
+  enrollmentBillingId?: string;
+  /**
+   * The enrollment this line bills. Empty on charge lines.
+   */
+  enrollmentId?: string;
   product: Ref;
   quantity: number;
   /**
-   * Calendar date YYYY-MM-DD
+   * Calendar date YYYY-MM-DD. A line that doesn't store it takes it from its billing schedule.
    * @format date
    */
   startDate?: string;

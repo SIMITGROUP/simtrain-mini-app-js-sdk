@@ -66,7 +66,9 @@ export type { AttendanceStudentPatchRequest } from "./AttendanceStudentPatchRequ
 export type { BackgroundTask } from "./BackgroundTask";
 export type { BillingAdjustmentAllocationResponse } from "./BillingAdjustmentAllocationResponse";
 export type { ClassEnrollmentCreateItemRequest } from "./ClassEnrollmentCreateItemRequest";
+export type { CreditNoteAllocationInput } from "./CreditNoteAllocationInput";
 export type { CreditNoteBillingAdjustmentResponse } from "./CreditNoteBillingAdjustmentResponse";
+export type { CreditNoteCreateRequest } from "./CreditNoteCreateRequest";
 export type { CreditNoteFilter } from "./CreditNoteFilter";
 export type { CreditNoteFilterBranch } from "./CreditNoteFilterBranch";
 export type { CreditNoteInvoiceResponse } from "./CreditNoteInvoiceResponse";

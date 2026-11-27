@@ -7,8 +7,8 @@ export interface OnlinePaymentInvoiceInput {
    */
   invoiceId: string;
   /**
-   * Part of the invoice this payment pays; at most its current outstanding amount.
-   * @minimum 0.01
+   * Part of the invoice this payment pays; at most its current outstanding amount. 0 is for an invoice your own receipt pays with other methods, such as points: it needs skipReceipt: true, and that receipt still lists the invoice. The amounts must add up to more than 0.
+   * @minimum 0
    * @maximum 10000000
    */
   knockOffAmount: number;

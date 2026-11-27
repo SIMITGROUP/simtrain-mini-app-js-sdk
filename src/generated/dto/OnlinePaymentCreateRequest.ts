@@ -40,7 +40,7 @@ export interface OnlinePaymentCreateRequest {
    */
   returnUrl: string;
   /**
-   * true: no receipt is made when paid; the app makes its own with POST /v2/payments (the online payment method, transactionNo = this paymentNo, the same invoices and total) and then confirms it. Default false: the receipt is made automatically. A payment without invoices never makes a receipt, so false is refused there.
+   * true: no receipt is made when paid; the app makes its own with POST /v2/payments (one online payment method with transactionNo = this paymentNo and amount = this payment amount, the same invoices; when a mini app started the payment, other methods such as points may pay the rest of the knock-off) and then confirms it. Default false: the receipt is made automatically. A payment without invoices never makes a receipt, so false is refused there.
    * @default false
    */
   skipReceipt?: boolean;
